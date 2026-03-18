@@ -404,87 +404,135 @@
 const items = [
     {
         name: 'Calculator',
+        name_de: 'Taschenrechner',
         context: 'You type 2 + 2. It says 4. You type it again tomorrow. It says 4.',
+        context_de: 'Du tippst 2 + 2. Er sagt 4. Du tippst es morgen nochmal. Er sagt 4.',
         verdict: 'not',
         label: 'Not AI',
-        text: 'Fixed rules. No data, no learning, no adaptation. Every input maps to exactly one output, always. A very good tool.'
+        label_de: 'Keine KI',
+        text: 'Fixed rules. No data, no learning, no adaptation. Every input maps to exactly one output, always. A very good tool.',
+        text_de: 'Feste Regeln. Keine Daten, kein Lernen, keine Anpassung. Jede Eingabe führt zu genau einer Ausgabe, immer. Ein sehr gutes Werkzeug.'
     },
     {
         name: 'Spam Filter',
+        name_de: 'Spam-Filter',
         context: 'You never see 99% of the junk sent to your inbox. Something is deciding.',
+        context_de: 'Du siehst 99% des Mülls in deinem Postfach nie. Irgendetwas entscheidet.',
         verdict: 'ai',
         label: 'AI',
-        text: 'Trained on millions of labeled emails. It learned what spam looks like. The filter you have today is not the one that shipped ten years ago.'
+        label_de: 'KI',
+        text: 'Trained on millions of labeled emails. It learned what spam looks like. The filter you have today is not the one that shipped ten years ago.',
+        text_de: 'Trainiert auf Millionen beschrifteter E-Mails. Er hat gelernt, wie Spam aussieht. Der Filter von heute ist nicht der, der vor zehn Jahren ausgeliefert wurde.'
     },
     {
         name: 'Google Search',
+        name_de: 'Google-Suche',
         context: 'You type "good coffee near me" without specifying what "near" or "good" means.',
+        context_de: 'Du tippst "guter Kaffee in der Nähe", ohne zu erklären, was "in der Nähe" oder "gut" bedeutet.',
         verdict: 'depends',
         label: 'It depends',
-        text: 'Crawling and indexing pages is algorithmic. Understanding what you meant when you typed it, and ranking results for your context, uses machine learning. The same search box, two different mechanisms.'
+        label_de: 'Kommt drauf an',
+        text: 'Crawling and indexing pages is algorithmic. Understanding what you meant when you typed it, and ranking results for your context, uses machine learning. The same search box, two different mechanisms.',
+        text_de: 'Seiten zu crawlen und zu indexieren ist algorithmisch. Zu verstehen, was du meintest, und Ergebnisse für deinen Kontext zu ranken, nutzt maschinelles Lernen. Dieselbe Suchleiste, zwei verschiedene Mechanismen.'
     },
     {
         name: 'GPS Navigation',
+        name_de: 'GPS-Navigation',
         context: 'It tells you to take a different route than yesterday for the same journey.',
+        context_de: 'Es schlägt eine andere Route vor als gestern, für dieselbe Fahrt.',
         verdict: 'depends',
         label: 'It depends',
-        text: 'Finding the shortest path is a graph algorithm, decades old. Predicting where traffic will slow down in 20 minutes is machine learning trained on millions of past journeys.'
+        label_de: 'Kommt drauf an',
+        text: 'Finding the shortest path is a graph algorithm, decades old. Predicting where traffic will slow down in 20 minutes is machine learning trained on millions of past journeys.',
+        text_de: 'Den kürzesten Weg zu finden ist ein Graphenalgorithmus, jahrzehntealt. Vorherzusagen, wo der Verkehr in 20 Minuten stockt, ist maschinelles Lernen, trainiert auf Millionen früherer Fahrten.'
     },
     {
         name: 'Face ID',
+        name_de: 'Face ID',
         context: 'It unlocks when you look at it. Even after you got a haircut.',
+        context_de: 'Es entsperrt, wenn du draufschaust. Auch nach dem Haarschnitt.',
         verdict: 'ai',
         label: 'AI',
-        text: 'A neural network trained on face data. It does not compare a stored photo. It learned what makes your face yours, and it updates that model over time.'
+        label_de: 'KI',
+        text: 'A neural network trained on face data. It does not compare a stored photo. It learned what makes your face yours, and it updates that model over time.',
+        text_de: 'Ein neuronales Netz, trainiert auf Gesichtsdaten. Es vergleicht kein gespeichertes Foto. Es hat gelernt, was dein Gesicht ausmacht, und aktualisiert dieses Modell mit der Zeit.'
     },
     {
         name: 'Autocorrect',
+        name_de: 'Autokorrektur',
         context: 'Sometimes it fixes "teh" to "the". Sometimes it finishes your entire sentence.',
+        context_de: 'Manchmal korrigiert es "teh" zu "the". Manchmal vervollständigt es deinen ganzen Satz.',
         verdict: 'depends',
         label: 'It depends',
-        text: 'Correcting common typos is a lookup table. Predicting the next word in your sentence is a language model. The same keyboard, two very different things happening underneath.'
+        label_de: 'Kommt drauf an',
+        text: 'Correcting common typos is a lookup table. Predicting the next word in your sentence is a language model. The same keyboard, two very different things happening underneath.',
+        text_de: 'Häufige Tippfehler zu korrigieren ist eine Nachschlagetabelle. Das nächste Wort in deinem Satz vorherzusagen ist ein Sprachmodell. Dieselbe Tastatur, zwei völlig unterschiedliche Mechanismen darunter.'
     },
     {
         name: 'Thermostat',
+        name_de: 'Thermostat',
         context: 'The old kind. The dial on the wall.',
+        context_de: 'Das alte. Der Drehregler an der Wand.',
         verdict: 'not',
         label: 'Not AI',
-        text: 'If temperature drops below X, turn on heat. The rule never changes. No data, no learning. It has one job and it does not need to think.'
+        label_de: 'Keine KI',
+        text: 'If temperature drops below X, turn on heat. The rule never changes. No data, no learning. It has one job and it does not need to think.',
+        text_de: 'Wenn die Temperatur unter X fällt, Heizung an. Die Regel ändert sich nie. Keine Daten, kein Lernen. Es hat einen Job und muss nicht denken.'
     },
     {
         name: 'Netflix Recommendations',
+        name_de: 'Netflix-Empfehlungen',
         context: 'It suggested something you never searched for. You watched it for three hours.',
+        context_de: 'Es hat etwas vorgeschlagen, nach dem du nie gesucht hast. Du hast es drei Stunden lang geschaut.',
         verdict: 'ai',
         label: 'AI',
-        text: 'Collaborative filtering trained on millions of viewing patterns. When it recommends something you did not ask for and you watch it, that is the system doing exactly what it was optimized to do.'
+        label_de: 'KI',
+        text: 'Collaborative filtering trained on millions of viewing patterns. When it recommends something you did not ask for and you watch it, that is the system doing exactly what it was optimized to do.',
+        text_de: 'Kollaboratives Filtern, trainiert auf Millionen Sehmustern. Wenn es etwas empfiehlt, nach dem du nicht gefragt hast, und du schaust es, tut das System genau das, wofür es optimiert wurde.'
     },
     {
         name: 'Shazam',
+        name_de: 'Shazam',
         context: 'You hold your phone up in a loud bar. It names the song in four seconds.',
+        context_de: 'Du hältst dein Handy in einer lauten Bar hoch. Es nennt den Song in vier Sekunden.',
         verdict: 'ai',
         label: 'AI',
-        text: 'It does not compare the raw audio to a stored recording. It extracts spectral fingerprints and matches them against a database built from machine learning. Works with noise, distortion, and a cheap microphone.'
+        label_de: 'KI',
+        text: 'It does not compare the raw audio to a stored recording. It extracts spectral fingerprints and matches them against a database built from machine learning. Works with noise, distortion, and a cheap microphone.',
+        text_de: 'Es vergleicht das Rohaudio nicht mit einer gespeicherten Aufnahme. Es extrahiert spektrale Fingerabdrücke und gleicht sie mit einer durch maschinelles Lernen aufgebauten Datenbank ab. Funktioniert mit Lärm, Verzerrung und einem billigen Mikrofon.'
     },
     {
         name: 'Excel Sort',
+        name_de: 'Excel-Sortierung',
         context: 'You select a column, click Sort A→Z, and the rows rearrange.',
+        context_de: 'Du wählst eine Spalte aus, klickst auf Sortieren A→Z, und die Zeilen ordnen sich neu.',
         verdict: 'not',
         label: 'Not AI',
-        text: 'A deterministic sorting algorithm. Same column, same result, every time. No training, no model, no inference. Very fast and completely uninteresting from a machine learning standpoint.'
+        label_de: 'Keine KI',
+        text: 'A deterministic sorting algorithm. Same column, same result, every time. No training, no model, no inference. Very fast and completely uninteresting from a machine learning standpoint.',
+        text_de: 'Ein deterministischer Sortieralgorithmus. Gleiche Spalte, gleiches Ergebnis, jedes Mal. Kein Training, kein Modell, keine Inferenz. Sehr schnell und aus Sicht des maschinellen Lernens völlig uninteressant.'
     },
     {
         name: 'Fraud Detection',
+        name_de: 'Betrugserkennung',
         context: 'Your card gets declined in a city you have never visited. You did not call the bank.',
+        context_de: 'Deine Karte wird in einer Stadt abgelehnt, in der du noch nie warst. Du hast die Bank nicht angerufen.',
         verdict: 'ai',
         label: 'AI',
-        text: 'Pattern recognition trained on millions of transactions. It learned what your spending looks like. When something deviates, it flags it. The rules were not written by a human. They were inferred from data.'
+        label_de: 'KI',
+        text: 'Pattern recognition trained on millions of transactions. It learned what your spending looks like. When something deviates, it flags it. The rules were not written by a human. They were inferred from data.',
+        text_de: 'Mustererkennung, trainiert auf Millionen Transaktionen. Es hat gelernt, wie deine Ausgaben aussehen. Wenn etwas abweicht, schlägt es Alarm. Die Regeln wurden nicht von einem Menschen geschrieben. Sie wurden aus Daten abgeleitet.'
     },
     {
         name: 'Weather Forecast',
+        name_de: 'Wettervorhersage',
         context: 'The app says 73% chance of rain at 4 pm. Not "it might rain." A percentage.',
+        context_de: 'Die App sagt 73% Regenwahrscheinlichkeit um 16 Uhr. Nicht "es könnte regnen." Ein Prozentwert.',
         verdict: 'depends',
         label: 'It depends',
-        text: 'The underlying physics model is classical: differential equations, decades old. The probability estimate and local fine-tuning are machine learning trained on historical forecast errors. A 73% figure is not a rule. It is a learned calibration.'
+        label_de: 'Kommt drauf an',
+        text: 'The underlying physics model is classical: differential equations, decades old. The probability estimate and local fine-tuning are machine learning trained on historical forecast errors. A 73% figure is not a rule. It is a learned calibration.',
+        text_de: 'Das zugrundeliegende Physikmodell ist klassisch: Differentialgleichungen, jahrzehntealt. Die Wahrscheinlichkeitsschätzung und lokale Feinabstimmung sind maschinelles Lernen, trainiert auf historischen Vorhersagefehlern. Eine 73%-Angabe ist keine Regel. Sie ist eine gelernte Kalibrierung.'
     }
 ];
 
@@ -498,15 +546,17 @@ function render() {
     const item     = items[idx];
     const hasVoted = userVotes[idx] !== null;
 
+    const de = currentLang === 'de';
+
     document.getElementById('item-number').textContent  = (idx + 1) + ' / ' + items.length;
-    document.getElementById('item-name').textContent    = item.name;
-    document.getElementById('item-context').textContent = item.context;
+    document.getElementById('item-name').textContent    = de ? item.name_de    : item.name;
+    document.getElementById('item-context').textContent = de ? item.context_de : item.context;
 
     // Verdict badge
     const badge = document.getElementById('verdict-badge');
-    badge.textContent = item.label;
+    badge.textContent = de ? item.label_de : item.label;
     badge.className   = 'verdict ' + verdictClass[item.verdict];
-    document.getElementById('reveal-text').textContent = item.text;
+    document.getElementById('reveal-text').textContent = de ? item.text_de : item.text;
 
     // Result indicator
     const resultEl = document.getElementById('result-indicator');
