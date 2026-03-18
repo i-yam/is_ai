@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Is This AI?</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #141420;
+            color: #e8e8f0;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.8;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* === Language toggle === */
+        .lang-toggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            background: #2a2a44;
+            border: 1px solid #4a4a70;
+            border-radius: 20px;
+            padding: 6px 14px;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: sans-serif;
+            color: #a0a0d0;
+            z-index: 100;
+            transition: background 0.2s;
+        }
+        .lang-toggle:hover { background: #363658; }
+
+        /* === Hero === */
+        .hero {
+            text-align: center;
+            padding: 80px 24px 50px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 28px;
+        }
+
+        .tag {
+            background: #1c1c2e;
+            color: #8888b0;
+            border: 1px solid #2a2a40;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-family: sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            color: #666;
+            font-size: 16px;
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        /* === Game card === */
+        .game-area {
+            padding: 40px 0 80px;
+        }
+
+        .item-card {
+            background: #1c1c2e;
+            border: 1px solid #2a2a40;
+            border-radius: 14px;
+            padding: 40px 40px 36px;
+            position: relative;
+        }
+
+        .item-number {
+            font-size: 12px;
+            font-family: sans-serif;
+            color: #333;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .item-name {
+            font-size: 34px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .item-context {
+            font-size: 17px;
+            color: #777;
+            margin-bottom: 32px;
+            font-style: italic;
+            line-height: 1.7;
+        }
+
+        /* === Vote buttons === */
+        .vote-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-vote {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: sans-serif;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+            border: 1px solid #3a3a55;
+            background: #2a2a44;
+            color: #a0a0d0;
+        }
+        .btn-vote:hover { background: #363658; border-color: #5a5a80; }
+        .btn-vote:disabled { opacity: 0.3; cursor: default; }
+
+        /* === Reveal === */
+        .reveal-area {
+            display: none;
+            margin-top: 28px;
+            padding-top: 28px;
+            border-top: 1px solid #2a2a40;
+        }
+
+        .verdict {
+            display: inline-block;
+            font-size: 13px;
+            font-family: sans-serif;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+        .verdict-ai      { background: #1a3a2a; border: 1px solid #40a868; color: #70e898; }
+        .verdict-not     { background: #22223a; border: 1px solid #44447a; color: #8888b0; }
+        .verdict-depends { background: #2a2010; border: 1px solid #806020; color: #c09030; }
+
+        .reveal-text {
+            font-size: 16px;
+            color: #999;
+            line-height: 1.7;
+        }
+
+        /* === Navigation === */
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 28px;
+        }
+
+        .btn-nav {
+            background: transparent;
+            border: 1px solid #2a2a40;
+            border-radius: 6px;
+            padding: 8px 20px;
+            color: #555;
+            font-size: 14px;
+            font-family: sans-serif;
+            cursor: pointer;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .btn-nav:hover { border-color: #4a4a70; color: #a0a0d0; }
+        .btn-nav:disabled { opacity: 0.2; cursor: default; }
+
+        .progress {
+            font-size: 13px;
+            font-family: sans-serif;
+            color: #333;
+            letter-spacing: 1px;
+        }
+
+        /* === Done screen === */
+        .done-screen {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .done-screen h2 { font-size: 28px; color: #fff; margin-bottom: 16px; }
+        .done-screen p { font-size: 16px; color: #666; font-family: sans-serif; }
+        .btn-restart {
+            margin-top: 28px;
+            background: #2a2a44;
+            border: 1px solid #4a4a70;
+            border-radius: 8px;
+            padding: 12px 28px;
+            color: #a0a0d0;
+            font-size: 15px;
+            font-family: sans-serif;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-restart:hover { background: #363658; }
+
+        /* === Links === */
+        a { color: #80b4f0; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* === Footer === */
+        footer { text-align: center; padding: 40px 24px; color: #444; font-size: 14px; }
+        footer a { color: #555; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 36px; }
+            .item-name { font-size: 26px; }
+            .vote-row { flex-direction: column; }
+            .item-card { padding: 28px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<button class="lang-toggle" onclick="toggleLang()">DE</button>
+
+<div class="hero">
+    <div class="tags">
+        <span class="tag">all</span>
+        <span class="tag">no-code</span>
+        <span class="tag">intermediate</span>
+        <span class="tag">try-without-ai</span>
+        <span class="tag">ml-fundamentals</span>
+    </div>
+    <h1 data-i18n="hero.title">Is This AI?</h1>
+    <p data-i18n="hero.sub">Vote first. Then find out.</p>
+</div>
+
+<div class="container">
+<div class="game-area">
+
+    <div class="item-card" id="item-card">
+        <div class="item-number" id="item-number">1 / 8</div>
+        <div class="item-name" id="item-name"></div>
+        <div class="item-context" id="item-context"></div>
+        <div class="vote-row">
+            <button class="btn-vote" id="btn-yes" onclick="vote()" data-i18n="vote.yes">Yes, AI</button>
+            <button class="btn-vote" id="btn-no"  onclick="vote()" data-i18n="vote.no">Not AI</button>
+        </div>
+        <div class="reveal-area" id="reveal-area">
+            <span class="verdict" id="verdict-badge"></span>
+            <div class="reveal-text" id="reveal-text"></div>
+        </div>
+        <div class="nav-row">
+            <button class="btn-nav" id="btn-prev" onclick="navigate(-1)" disabled data-i18n="nav.prev">← prev</button>
+            <span class="progress" id="progress-dots"></span>
+            <button class="btn-nav" id="btn-next" onclick="navigate(1)" data-i18n="nav.next">next →</button>
+        </div>
+    </div>
+
+    <div class="done-screen" id="done-screen">
+        <h2 data-i18n="done.title">That's all eight.</h2>
+        <p data-i18n="done.sub">The line between AI and not-AI is less obvious than it looked five minutes ago.</p>
+        <button class="btn-restart" onclick="restart()" data-i18n="done.restart">Start over</button>
+    </div>
+
+</div>
+</div>
+
+<footer>
+    <a href="https://github.com/i-yam/is_this_ai" target="_blank">github.com/i-yam/is_this_ai</a>
+    &nbsp;·&nbsp;
+    <a href="https://i-yam.github.io/overfit-and-chill" target="_blank">overfit &amp; chill</a>
+</footer>
+
+<script>
+
+const items = [
+    {
+        name: 'Calculator',
+        context: 'You type 2 + 2. It says 4. You type it again tomorrow. It says 4.',
+        verdict: 'not',
+        label: 'Not AI',
+        text: 'Fixed rules. No data, no learning, no adaptation. Every input maps to exactly one output, always. A very good tool.'
+    },
+    {
+        name: 'Spam Filter',
+        context: 'You never see 99% of the junk sent to your inbox. Something is deciding.',
+        verdict: 'ai',
+        label: 'AI',
+        text: 'Trained on millions of labeled emails. It learned what spam looks like. The filter you have today is not the one that shipped ten years ago.'
+    },
+    {
+        name: 'Google Search',
+        context: 'You type "good coffee near me" without specifying what "near" or "good" means.',
+        verdict: 'depends',
+        label: 'It depends',
+        text: 'Crawling and indexing pages is algorithmic. Understanding what you meant when you typed it, and ranking results for your context, uses machine learning. The same search box, two different mechanisms.'
+    },
+    {
+        name: 'GPS Navigation',
+        context: 'It tells you to take a different route than yesterday for the same journey.',
+        verdict: 'depends',
+        label: 'It depends',
+        text: 'Finding the shortest path is a graph algorithm, decades old. Predicting where traffic will slow down in 20 minutes is machine learning trained on millions of past journeys.'
+    },
+    {
+        name: 'Face ID',
+        context: 'It unlocks when you look at it. Even after you got a haircut.',
+        verdict: 'ai',
+        label: 'AI',
+        text: 'A neural network trained on face data. It does not compare a stored photo. It learned what makes your face yours, and it updates that model over time.'
+    },
+    {
+        name: 'Autocorrect',
+        context: 'Sometimes it fixes "teh" to "the". Sometimes it finishes your entire sentence.',
+        verdict: 'depends',
+        label: 'It depends',
+        text: 'Correcting common typos is a lookup table. Predicting the next word in your sentence is a language model. The same keyboard, two very different things happening underneath.'
+    },
+    {
+        name: 'Thermostat',
+        context: 'The old kind. The dial on the wall.',
+        verdict: 'not',
+        label: 'Not AI',
+        text: 'If temperature drops below X, turn on heat. The rule never changes. No data, no learning. It has one job and it does not need to think.'
+    },
+    {
+        name: 'Netflix Recommendations',
+        context: 'It suggested something you never searched for. You watched it for three hours.',
+        verdict: 'ai',
+        label: 'AI',
+        text: 'Collaborative filtering trained on millions of viewing patterns. When it recommends something you did not ask for and you watch it, that is the system doing exactly what it was optimized to do.'
+    }
+];
+
+const verdictClass = { ai: 'verdict-ai', not: 'verdict-not', depends: 'verdict-depends' };
+
+let idx = 0;
+let voted = false;
+
+function render() {
+    const item = items[idx];
+    document.getElementById('item-number').textContent = (idx + 1) + ' / ' + items.length;
+    document.getElementById('item-name').textContent    = item.name;
+    document.getElementById('item-context').textContent = item.context;
+
+    const badge = document.getElementById('verdict-badge');
+    badge.textContent = item.label;
+    badge.className   = 'verdict ' + verdictClass[item.verdict];
+    document.getElementById('reveal-text').textContent = item.text;
+
+    document.getElementById('reveal-area').style.display = voted ? 'block' : 'none';
+    document.getElementById('btn-yes').disabled = voted;
+    document.getElementById('btn-no').disabled  = voted;
+
+    document.getElementById('btn-prev').disabled = (idx === 0);
+    document.getElementById('btn-next').disabled = (idx === items.length - 1 && !voted);
+    if (idx === items.length - 1 && voted) {
+        document.getElementById('btn-next').textContent = currentLang === 'de' ? 'Fertig' : 'Done';
+        document.getElementById('btn-next').onclick = finish;
+        document.getElementById('btn-next').disabled = false;
+    } else {
+        document.getElementById('btn-next').textContent = currentLang === 'de' ? 'weiter →' : 'next →';
+        document.getElementById('btn-next').onclick = () => navigate(1);
+    }
+
+    const dots = document.getElementById('progress-dots');
+    dots.textContent = items.map((_, i) => i === idx ? '●' : '·').join(' ');
+}
+
+function vote() {
+    voted = true;
+    render();
+}
+
+function navigate(dir) {
+    idx += dir;
+    voted = false;
+    render();
+}
+
+function finish() {
+    document.getElementById('item-card').style.display  = 'none';
+    document.getElementById('done-screen').style.display = 'block';
+}
+
+function restart() {
+    idx = 0;
+    voted = false;
+    document.getElementById('item-card').style.display  = 'block';
+    document.getElementById('done-screen').style.display = 'none';
+    render();
+}
+
+// ─── Language toggle ─────────────────────────────────────────────────────────
+const T = {
+    en: {
+        'hero.title': 'Is This AI?',
+        'hero.sub':   'Vote first. Then find out.',
+        'vote.yes':   'Yes, AI',
+        'vote.no':    'Not AI',
+        'nav.prev':   '← prev',
+        'nav.next':   'next →',
+        'done.title':   "That's all eight.",
+        'done.sub':     'The line between AI and not-AI is less obvious than it looked five minutes ago.',
+        'done.restart': 'Start over',
+    },
+    de: {
+        'hero.title': 'Ist das KI?',
+        'hero.sub':   'Erst abstimmen. Dann schauen.',
+        'vote.yes':   'Ja, KI',
+        'vote.no':    'Keine KI',
+        'nav.prev':   '← zurück',
+        'nav.next':   'weiter →',
+        'done.title':   'Das waren alle acht.',
+        'done.sub':     'Die Grenze zwischen KI und nicht-KI ist weniger klar, als sie vor fünf Minuten aussah.',
+        'done.restart': 'Nochmal',
+    }
+};
+
+let currentLang = 'en';
+
+function toggleLang() {
+    currentLang = currentLang === 'en' ? 'de' : 'en';
+    document.documentElement.lang = currentLang;
+    document.querySelector('.lang-toggle').textContent = currentLang === 'en' ? 'DE' : 'EN';
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (T[currentLang] && T[currentLang][key]) el.textContent = T[currentLang][key];
+    });
+    render();
+}
+
+// Init
+render();
+
+</script>
+</body>
+</html>
