@@ -254,20 +254,6 @@
             margin-bottom: 12px;
         }
 
-        .badge-download-btn {
-            display: inline-block;
-            background: #1c1c2e;
-            border: 1px solid #2a2a40;
-            border-radius: 6px;
-            padding: 7px 18px;
-            font-size: 13px;
-            font-family: sans-serif;
-            text-decoration: none;
-            transition: border-color 0.2s, color 0.2s;
-            color: #555;
-        }
-        .badge-download-btn:hover { border-color: #4a4a70; color: #a0a0d0; text-decoration: none; }
-
         .done-screen h2 {
             font-size: 26px;
             color: #fff;
@@ -397,7 +383,6 @@
         <span class="score-label" id="score-label" data-i18n="done.score_label">/ 12 correct</span>
         <div class="badge-container">
             <img id="badge-img" class="badge-img" src="" alt="Your AI Detective Badge">
-            <a id="badge-download" class="badge-download-btn" href="" download data-i18n="done.save_badge">↓ Save badge</a>
         </div>
         <h2 id="done-title"></h2>
         <p id="done-sub"></p>
@@ -409,7 +394,7 @@
 </div>
 
 <footer>
-    <a href="https://github.com/i-yam/is_this_ai" target="_blank">github.com/i-yam/is_this_ai</a>
+    <a href="https://github.com/i-yam/is_ai" target="_blank">github.com/i-yam/is_ai</a>
     &nbsp;·&nbsp;
     <a href="https://i-yam.github.io/overfit-and-chill" target="_blank">overfit &amp; chill</a>
 </footer>
@@ -601,10 +586,6 @@ function renderDone() {
 
     const imgSrc = isTop ? 'images/best.jpg' : 'images/default.jpg';
     document.getElementById('badge-img').src = imgSrc;
-    const dl     = document.getElementById('badge-download');
-    dl.href      = imgSrc;
-    dl.download  = isTop ? 'ghost-in-the-shell-badge.jpg' : 'blade-runner-badge.jpg';
-
     if (isTop) {
         done.className = 'done-screen theme-gits';
 
@@ -672,7 +653,6 @@ const T = {
         'nav.prev':         '← prev',
         'nav.next':         'next →',
         'done.score_label': '/ 12 correct',
-        'done.save_badge':  '↓ Save badge',
         'done.restart':     'Start over',
     },
     de: {
@@ -684,7 +664,6 @@ const T = {
         'nav.prev':         '← zurück',
         'nav.next':         'weiter →',
         'done.score_label': '/ 12 richtig',
-        'done.save_badge':  '↓ Badge speichern',
         'done.restart':     'Nochmal',
     }
 };
